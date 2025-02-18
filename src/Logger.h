@@ -1,9 +1,9 @@
 /*
  *   File name: Logger.h
- *   Summary:	Logger class for Myrlyn
- *   License:	GPL V2 - See file LICENSE for details.
+ *   Summary:   Logger class for Myrlyn
+ *   License:   GPL V2 - See file LICENSE for details.
  *
- *   Author:	Stefan Hundhammer <Stefan.Hundhammer@gmx.de>
+ *   Author:    Stefan Hundhammer <Stefan.Hundhammer@gmx.de>
  *              Donated by the QDirStat project
  */
 
@@ -12,13 +12,23 @@
 #define Logger_h
 
 #include <string>
+#include <iostream>
+#include <fstream>
+
 #include <QString>
 #include <QStringList>
-#include <QFile>
-#include <QTextStream>
 
 
-typedef QTextStream LogStream;
+typedef std::ofstream LogStream;
+
+
+// Define NO_USING_STD_ENDL before including this header (or on the compiler
+// command line) if you are anal about this in your own code, but do not remove
+// it here.
+
+#ifndef NO_USING_STD_ENDL
+  using std::endl;
+#endif
 
 
 // Intentionally not using LogDebug, LogMilestone etc. to avoid confusion
@@ -77,9 +87,9 @@ enum LogSeverity
         if ( obj )                                                      \
             logDebug() << "sender(): " << obj->metaObject()->className() \
                        << " " << obj->objectName()                      \
-                       << endl;                                         \
+                       << std::endl;                                    \
         else                                                            \
-            logDebug() << "No sender" << endl;                          \
+            logDebug() << "No sender" << std::endl;                     \
                                                                         \
     } while( 0 )
 
@@ -308,9 +318,8 @@ private:
     static Logger * _defaultLogger;
     static QString  _lastLogDir;
 
-    QFile           _logFile;
     LogStream       _logStream;
-    QFile           _nullDevice;
+    QString         _logFilename;
     LogStream       _nullStream;
     LogSeverity     _logLevel;
 };

@@ -31,7 +31,7 @@ int main( int argc, char *argv[] )
     logDebug() << "Testing const char *" << endl;
     logDebug() << QString( "Testing QString" ) << endl;
     logDebug() << std::string( "Testing std::string" ) << endl;
-
+    logNewline();
     logDebug() << "logtest finished." << endl;
 
     return 0;
