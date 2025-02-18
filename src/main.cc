@@ -1,7 +1,7 @@
 
 #include <string>
 
-#include <QApplication>
+#include <QCoreApplication>
 #include <QObject>
 
 #include "Logger.h"
@@ -26,7 +26,7 @@ int main( int argc, char *argv[] )
     Logger logger( "/tmp/logtest-$USER", "logtest.log" );
     logVersion();
 
-    QApplication qtApp( argc, argv);
+    QCoreApplication qtApp( argc, argv);
 
     logDebug() << "Testing const char *" << endl;
     logDebug() << QString( "Testing QString" ) << endl;
