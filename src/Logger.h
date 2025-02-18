@@ -325,9 +325,10 @@ private:
 };
 
 
-LogStream & operator<<( LogStream & str, bool val );
+LogStream & operator<<( LogStream & str, const QString & text );
+LogStream & operator<<( LogStream & str, const char *    text );
 LogStream & operator<<( LogStream & str, const QStringList & stringList );
-LogStream & operator<<( LogStream & str, const std::string & text );
+
 
 
 /**

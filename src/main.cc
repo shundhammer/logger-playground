@@ -24,7 +24,10 @@ void logVersion()
 int main( int argc, char *argv[] )
 {
     Logger logger( "/tmp/logtest-$USER", "logtest.log" );
+
+#if 0
     logVersion();
+#endif
 
     QCoreApplication qtApp( argc, argv);
 

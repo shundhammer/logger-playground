@@ -14,6 +14,7 @@
 #include <QString>
 #include <QStringList>
 
+#include <string.h>     // strlen()
 #include <stdlib.h>     // abort(), mkdtemp()
 #include <unistd.h>     // getpid()
 #include <errno.h>
@@ -34,13 +35,12 @@ static void qt_logger( QtMsgType                  msgType,
                        const QMessageLogContext & context,
                        const QString &            msg );
 
+
 Logger * Logger::_defaultLogger = 0;
 QString  Logger::_lastLogDir;
 
 
-Logger::Logger( const QString &filename ):
-    _logStream ( stderr, QIODevice::WriteOnly ),
-    _nullStream( stderr, QIODevice::WriteOnly )
+Logger::Logger( const QString & filename )
 {
     init();
     createNullStream();
@@ -170,7 +170,7 @@ LogStream & Logger::log( const QString & srcFile,
     if ( severity < _logLevel )
         return _nullStream;
 
-    QString sev;
+    std::string sev;
 
     switch ( severity )
     {
@@ -449,7 +449,7 @@ QString Logger::createLogDir( const QString & rawLogDir )
         }
         else
         {
-            logError() << "Could not create log dir " << nameTemplate
+            logError() << "Could not create log dir " << QString( nameTemplate )
                        << ": " << formatErrno() << endl;
 
             logDir = "/";
@@ -564,9 +564,19 @@ QString Logger::expandVariables( const QString & unexpanded )
 
 
 
-LogStream & operator<<( LogStream & str, bool val )
+LogStream & operator<<( LogStream & str, const char * text )
 {
-    str << ( val ? "true" : "false" );
+    // Need to resort to ugly low-level ostream::write()
+    // to prevent an endless recursion
+    str.write( text, strlen( text ) );
+
+    return str;
+}
+
+
+LogStream & operator<<( LogStream & str, const QString & text )
+{
+    str << text.toUtf8().constData();
     return str;
 }
 
@@ -574,13 +584,6 @@ LogStream & operator<<( LogStream & str, bool val )
 LogStream & operator<<( LogStream & str, const QStringList & stringList )
 {
     str << stringList.join( ", " );
-    return str;
-}
-
-
-LogStream & operator<<( LogStream & str, const std::string & text )
-{
-    str << QString::fromUtf8( text.c_str() );
     return str;
 }
 
