@@ -29,13 +29,14 @@ QMAKE_CXXFLAGS  +=  -Wno-deprecated -Wno-deprecated-declarations
 
 SOURCES   = main.cc             \
             Logger.cc           \
-
+            LogStream.cc        \
+            
             # Exception.cc
 
 
 HEADERS   =                     \
             Logger.h            \
-
+            LogStream.h         \
 
             # Exception.h
 

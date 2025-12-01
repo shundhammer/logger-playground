@@ -17,7 +17,7 @@ void logVersion()
 
     logInfo() << progName
               << " built with Qt " << QT_VERSION_STR
-              << endl;
+              << LogStr::endl;
 }
 
 
@@ -34,6 +34,9 @@ int main( int argc, char *argv[] )
     logDebug() << "Testing const char *" << endl;
     logDebug() << QString( "Testing QString" ) << endl;
     logDebug() << std::string( "Testing std::string" ) << endl;
+    logDebug() << "Testing int: " << 42 << endl;
+    logDebug() << "Testing double: " << 3.1415 << endl;
+    logDebug() << "Testing bool: " << true << " or " << false << endl;
     logNewline();
     logDebug() << "logtest finished." << endl;
 
