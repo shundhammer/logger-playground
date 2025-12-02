@@ -37,6 +37,7 @@ int main( int argc, char *argv[] )
     logDebug() << "Testing int: " << 42 << endl;
     logDebug() << "Testing double: " << 3.1415 << endl;
     logDebug() << "Testing bool: " << true << " or " << false << endl;
+    logDebug() << "Testing char: " << 'a' << 'b' << 'c' << endl;
     logNewline();
     logDebug() << "logtest finished." << endl;
 

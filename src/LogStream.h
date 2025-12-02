@@ -116,6 +116,7 @@ LogStream & operator<<( LogStream & str, const QStringList & stringList );
 LogStream & operator<<( LogStream & str, int    val );
 LogStream & operator<<( LogStream & str, double val );
 LogStream & operator<<( LogStream & str, bool   val );
+LogStream & operator<<( LogStream & str, char   val );
 
 
 #endif // LogStream_h

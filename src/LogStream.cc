@@ -122,3 +122,9 @@ LogStream & operator<<( LogStream & str, bool val )
     return str;
 }
 
+
+LogStream & operator<<( LogStream & str, char val )
+{
+    return logStreamOut<char>( str, val );
+}
+
