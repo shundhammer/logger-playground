@@ -31,7 +31,7 @@ bool LogStream::open( const QString & filename )
     {
         QIODevice::OpenMode openMode = QIODevice::WriteOnly | QIODevice::Text;
 
-        if ( filename != "/dev/null" )
+        if ( filename != "/dev/null" && filename != "/dev/stderr" )
             openMode |= QIODevice::Append;
 
         _logFile.setFileName( filename );
